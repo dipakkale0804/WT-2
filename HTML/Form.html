@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form</title>
+    <style>
+        /* Center the form and set basic styling */
+        form {
+            width: 50%;
+            margin: 0 auto;
+            border: 2px solid #000;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+
+        /* Style for input fields */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            padding-right: 0px;  
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* Style for radio and checkbox buttons */
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        /* Submit and Reset buttons */
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Submit button style */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Reset button style */
+        button[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Space between the fields */
+        .form-row {
+            margin-bottom: 10px;
+        }
+
+        .form-row input[type="radio"],
+        .form-row input[type="checkbox"] {
+            width: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Registration Form</h1>
+    <form action=" ">
+
+        <!-- Full Name -->
+        <div class="form-row">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname">
+        </div>
+
+        <!-- Email -->
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-row">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-row">
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-row">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone">
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-row">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+        </div>
+
+        <!-- Gender -->
+        <div class="form-row">
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male" required> Male
+            <input type="radio" id="female" name="gender" value="Female" required> Female
+        </div>
+
+        <!-- Address -->
+        <div class="form-row">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address"></textarea>
+        </div>
+
+        <!-- City -->
+        <div class="form-row">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city">
+        </div>
+
+        <!-- Country (Dropdown) -->
+        <div class="form-row">
+            <label for="country">Country:</label>
+            <select id="country" name="country" required>
+                <option value="">Select your country</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+            </select>
+        </div>
+
+        <!-- Profile Picture Upload -->
+        <div class="form-row">
+            <label for="profile-picture">Upload Profile Picture:</label>
+            <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+        </div>
+
+        <!-- Courses (Checkbox) -->
+        <div class="form-row">
+            <label>Select Courses:</label>
+            <input type="checkbox" id="course1" name="courses" value="Web Development"> Web Development
+            <input type="checkbox" id="course2" name="courses" value="Data Science"> Data Science
+            <input type="checkbox" id="course3" name="courses" value="AI & ML"> AI & ML
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="form-row">
+            <label for="terms">
+                <input type="checkbox" id="terms" name="terms" required> I agree to the terms and conditions
+            </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-row">
+            <button type="submit">Register</button>
+            <!-- Reset Button -->
+            <button type="reset">Reset</button>
+        </div>
+
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+
+form.addEventListener('submit', function(event) {
+    // Get form values
+    const fullname = document.getElementById('fullname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const phone = document.getElementById('phone').value.trim();
+    const dob = document.getElementById('dob').value;
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const address = document.getElementById('address').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const country = document.getElementById('country').value;
+    const terms = document.getElementById('terms').checked;
+
+    let errors = [];
+
+    // Check if all required fields are filled
+    if (!fullname) errors.push('Full name is required.');
+    if (!email) errors.push('Email is required.');
+    if (!password) errors.push('Password is required.');
+    if (!confirmPassword) errors.push('Please confirm your password.');
+    if (!phone) errors.push('Phone number is required.');
+    if (!dob) errors.push('Date of birth is required.');
+    if (!gender) errors.push('Gender is required.');
+    if (!address) errors.push('Address is required.');
+    if (!city) errors.push('City is required.');
+    if (!country) errors.push('Country is required.');
+    if (!terms) errors.push('You must agree to the terms and conditions.');
+
+    // Check password match
+    if (password !== confirmPassword) {
+        errors.push('Passwords do not match.');
+    }
+
+    // Check phone number (should be 10 digits)
+    if (!/^\d{10}$/.test(phone)) {
+        errors.push('Phone number must be 10 digits.');
+    }
+
+    // If there are any errors, prevent form submission
+    if (errors.length > 0) {
+        event.preventDefault(); // Prevent form submission
+        alert(errors.join('\n')); // Show all errors
+    }
+});
+
+    </script>
+</body>
+
+</html>

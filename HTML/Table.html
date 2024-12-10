@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Table</title> 
+    <style>
+        table {
+            width: 100%;  
+            border-collapse: collapse; 
+        }
+
+        th, td {
+            border: 2px solid black;  
+            text-align: center;  
+            padding: 10px;  
+        }
+
+        h1 {
+            text-align: center;   
+        }
+
+        p {
+            text-align: center; 
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Create Table</h1>
+    <p>Write HTML code to create a table. Use colspan and rowspan.</p>
+
+    <table  >
+
+        <thead>
+            <tr>
+                <td>Day</td>
+                <td>9-10</td>
+                <td>10-11</td>
+                <td>11-12</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Monday</td>
+                <td>Math</td>
+                <td rowspan="2">Physics</td>
+                <td>Break</td>
+            </tr>
+
+            <tr>
+                <td>Tuesday</td>
+                <td>Chemistry</td>
+                <td>Project</td>
+            </tr>
+
+            <tr>
+                <td>Wednesday</td>
+                <td>Math</td>
+                <td>Physics</td>
+                <td>Break</td>
+            </tr>
+
+            <tr>
+                <td>Thursday</td>
+                <td>Math</td>
+                <td colspan="2">Guest Lecture</td> 
+            </tr>
+        </tbody>
+
+    </table>
+
+</body>
+
+</html>

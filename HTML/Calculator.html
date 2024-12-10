@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+        <link rel="stylesheet" href="calc.css">
+        <style>
+            * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9; /* Light background color */
+}
+
+.Calculator {
+    background-color: #ffffff; 
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 320px;
+}
+
+#inputbox {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: right;
+    padding-right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    outline: none; /* Removes outline on focus */
+}
+
+.Calculator div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+button:active {
+    background-color: #d6d6d6;
+}
+
+
+        </style>
+    </head>
+    <body>
+        <div class="Calculator">
+            <input type="text" id="inputbox" placeholder="0">
+
+            <div>
+                <button>AC</button>
+                <button>DEL</button>
+                <button>%</button>
+                <button>/</button>
+            </div>
+
+            <div>
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>*</button>
+            </div>
+
+            <div>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>-</button>
+            </div>
+
+            <div>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>+</button>
+            </div>
+
+            <div>
+                <button>00</button>
+                <button>0</button>
+                <button>.</button>
+                <button>=</button>
+            </div>
+        </div>
+
+        
+        <script src="calc.js"></script>
+
+        <script>
+            let input = document.getElementById('inputbox');
+let buttons = document.querySelectorAll('button');
+
+let string = "";
+let arr = Array.from(buttons);
+
+arr.forEach(button => {
+    button.addEventListener('click', (e) => {
+        if (e.target.innerHTML == '=') {
+            try {
+                string = eval(string);
+            } catch {
+                string = 'Error';
+            }
+            input.value = string;
+        } 
+        else if (e.target.innerHTML == 'AC') {
+            string = "";
+            input.value = string;
+        } 
+        else if (e.target.innerHTML == 'DEL') {
+            string = string.substring(0, string.length - 1);
+            input.value = string;
+        } 
+        else {
+            string += e.target.innerHTML;
+            input.value = string;
+        }
+    });
+});
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form</title>
+    <style>
+        /* Center the form and set basic styling */
+        form {
+            width: 50%;
+            margin: 0 auto;
+            border: 2px solid #000;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+
+        /* Style for input fields */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            padding-right: 0px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* Style for radio and checkbox buttons */
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        /* Submit and Reset buttons */
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Submit button style */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Reset button style */
+        button[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Space between the fields */
+        .form-row {
+            margin-bottom: 10px;
+        }
+
+        .form-row input[type="radio"],
+        .form-row input[type="checkbox"] {
+            width: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Registration Form</h1>
+    <form id="registrationForm" action="">
+
+        <!-- Full Name -->
+        <div class="form-row">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname">
+        </div>
+
+        <!-- Email -->
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-row">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-row">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone">
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-row">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+        </div>
+
+        <!-- Gender -->
+        <div class="form-row">
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male" required> Male
+            <input type="radio" id="female" name="gender" value="Female" required> Female
+        </div>
+
+        <!-- Address -->
+        <div class="form-row">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address"></textarea>
+        </div>
+
+        <!-- Courses (Checkbox) -->
+        <div class="form-row">
+            <label>Select Courses:</label>
+            <input type="checkbox" id="course1" name="courses" value="Web Development"> Web Development
+            <input type="checkbox" id="course2" name="courses" value="Data Science"> Data Science
+            <input type="checkbox" id="course3" name="courses" value="AI & ML"> AI & ML
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="form-row">
+            <label for="terms">
+                <input type="checkbox" id="terms" name="terms" required> I agree to the terms and conditions
+            </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-row">
+            <button type="submit">Register</button>
+            <!-- Reset Button -->
+            <button type="reset">Reset</button>
+        </div>
+
+    </form>
+
+    <h2>Submitted Data</h2>
+    <table id="submittedData" border="1" style="width: 100%; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Phone</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Courses</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const tableBody = document.getElementById('submittedData').getElementsByTagName('tbody')[0];
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form values
+            const fullname = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const phone = document.getElementById('phone').value.trim();
+            const dob = document.getElementById('dob').value;
+            const gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '';
+            const address = document.getElementById('address').value.trim();
+            const courses = [];
+            if (document.getElementById('course1').checked) courses.push('Web Development');
+            if (document.getElementById('course2').checked) courses.push('Data Science');
+            if (document.getElementById('course3').checked) courses.push('AI & ML');
+
+            // Add row to table
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
+                <td>${fullname}</td>
+                <td>${email}</td>
+                <td>${password}</td>
+                <td>${phone}</td>
+                <td>${dob}</td>
+                <td>${gender}</td>
+                <td>${address}</td>
+                <td>${courses.join(', ')}</td>
+            `;
+        });
+    </script>
+</body>
+
+</html>

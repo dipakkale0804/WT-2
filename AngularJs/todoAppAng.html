@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.todo-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+.action-buttons button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.remove-btn {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 8px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.remove-btn:hover {
+    background-color: #cc0000;
+}
+
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+    <div class="container">
+        <h2>My To-Do List</h2>
+
+        <!-- Form to add new task -->
+        <form ng-submit="todoAdd()">
+            <input type="text" ng-model="todoInput" placeholder="Add new task">
+            <input type="submit" value="Add">
+        </form>
+
+        <!-- To-Do List Items -->
+        <div ng-repeat="x in todoList" class="todo-item">
+            <input type="checkbox" ng-model="x.done">
+            <span class="todo-text" ng-bind="x.todoText" ng-dblclick="enableEdit($index)"></span>
+            
+            <input type="text" ng-model="x.todoText" ng-show="x.isEditing" ng-blur="disableEdit($index)" placeholder="Edit task">
+            
+            <div class="action-buttons">
+                <button ng-click="edit($index)">Edit</button>
+                <button ng-click="delete($index)">Delete</button>
+            </div>
+        </div>
+
+        <!-- Remove all completed tasks -->
+        <button class="remove-btn" ng-click="remove()">Remove Completed</button>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+    
+        app.controller('todoCtrl', function ($scope) {
+            
+            // Initial task list with one pre-defined task
+            $scope.todoList = [{ todoText: "Clean house", done: false }];
+    
+            // Add a new task to the list
+            $scope.todoAdd = function () {
+                if ($scope.todoInput) {
+                    $scope.todoList.push({ todoText: $scope.todoInput, done: false, isEditing: false });
+                    $scope.todoInput = ""; // Clear the input field
+                }
+            };
+    
+            // Remove all completed tasks
+            $scope.remove = function () {
+                $scope.todoList = $scope.todoList.filter(task => !task.done);
+            };
+    
+            // Delete a specific task
+            $scope.delete = function (index) {
+                $scope.todoList.splice(index, 1);
+            };
+    
+            // Toggle edit mode for a specific task
+            $scope.edit = function (index) {
+                $scope.todoList[index].isEditing = true;
+            };
+    
+            // Disable edit mode and save changes
+            $scope.disableEdit = function (index) {
+                $scope.todoList[index].isEditing = false;
+            };
+    
+        });
+    </script>
+    
+
+</body>
+
+</html>

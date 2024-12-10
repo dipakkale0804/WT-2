@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+    <form ng-submit="todoAdd()">
+
+        <input type="text" placeholder="add new task" ng-model="todoInput">
+        <span><input type="submit" value="add new"></span>
+
+    </form>
+
+    <div ng-repeat="x in todoList">
+        <input type="checkbox" ng-model="x.done">
+        <span ng-bind="x.todoText"></span>
+
+    </div>
+
+    <p>
+        <button ng-click="remove()"> remove</button>
+    </p>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('todoCtrl', function ($scope) {
+            $scope.todoList = [{ todoText: "Clean house", done: false }];
+
+            $scope.todoAdd = function () {
+                $scope.todoList.push({
+                    todoText: $scope.todoInput, done: false
+                });
+            }
+            $scope.remove = function () {
+                var oldList = $scope.todoList;
+                $scope.todoList = [];
+
+
+                angular.forEach(oldList, function (x) {
+                    if (!x.done) {
+                        $scope.todoList.push(x);
+
+                    }
+                });
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

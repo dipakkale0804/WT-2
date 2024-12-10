@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> AngularJS Form</title>
+
+    <!-- Link to AngularJS CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            background-color: #f4f4f9;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="FormController">
+
+    <h1>Simple AngularJS Form</h1>
+
+    <!-- Form -->
+    <form name="userForm" ng-submit="submitForm(user)" novalidate>
+
+        <!-- Name Field -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" ng-model="user.name" placeholder="Enter your name" required>
+
+
+        <br><br>
+
+        <!-- Email Field -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" ng-model="user.email" placeholder="Enter your email" required>
+
+        <br><br>
+
+        <!-- Password Field -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="user.password" placeholder="Enter your password" required>
+
+
+        <br><br>
+
+        <!-- Submit Button -->
+        <button type="submit" ng-disabled="userForm.$invalid">Submit</button>
+    </form>
+
+    <!-- Display Submitted Data -->
+    <h2>Submitted Data</h2>
+    <p><strong>Name:</strong> {{ submittedData.name }}</p>
+    <p><strong>Email:</strong> {{ submittedData.email }}</p>
+    <p><strong>Password:</strong> {{ submittedData.password }}</p>
+
+    <script>
+        // Create AngularJS module and controller
+        var app = angular.module('myApp', []);
+
+        app.controller('FormController', function ($scope) {
+            $scope.user = {}; // Store form input data
+            $scope.submittedData = {}; // Store submitted data
+
+            // Submit form function
+            $scope.submitForm = function (user) {
+                if ($scope.userForm.$valid) {
+                    $scope.submittedData = angular.copy(user); // Copy form data to submittedData
+                    alert('Form submitted successfully!');
+                } else {
+                    alert('Please fill out the form correctly.');
+                }
+            };
+        });
+    </script>
+
+</body>
+
+</html>
